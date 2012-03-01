@@ -1,0 +1,177 @@
+<project name="PotterUtils" basedir="." default="main">
+
+    <property name="src.dir"     			value="../src"/>
+	<property name="dist.dir"				value="../dist"/>
+    <property name="build.dir"   			value="../build"/>
+	<property name="lib.dir" 	 			value="../lib" />
+	<property name="doc.dir" 	 			value="../doc" />
+	<property name="log.dir" 	 			value="../log" />
+	<property name="config.dir" 	 		value="../config" />
+	<property name="files.dir" 	 			value="../files" />
+	<property name="files.npa.dir" 	 		value="${files.dir}/npa" />
+	<property name="files.images.dir" 	 	value="${files.dir}/images" />
+	<property name="files.print.dir" 	 	value="${files.dir}/print" />
+	
+	
+    <property name="classes.dir" 			value="${build.dir}"/>
+    <property name="jar.dir"     			value="${build.dir}/jar"/>
+	<property name="build.dist.dir" 		value="${build.dir}/dist" />
+	<property name="build.dist.app.dir" 	value="${build.dist.dir}/${ant.project.name}" />
+	<property name="build.dist.lib.dir" 	value="${build.dist.app.dir}/lib" />
+	<property name="build.dist.dist.dir" 	value="${build.dist.app.dir}/dist" />
+	<property name="build.dist.doc.dir" 	value="${build.dist.app.dir}/doc" />
+	<property name="build.dist.log.dir" 	value="${build.dist.app.dir}/logs" />
+	<property name="build.dist.files.dir" 	value="${build.dist.app.dir}/files" />
+	
+	<property name="ip.arg" 				value="157.184.0.0" />
+	<property name="ismfp.arg" 				value="false" />
+	<property name="screen.size.arg" 		value="small" />
+	
+	<property name="manifest.jar" 	value="stl.jar"/>
+	<!--	
+	<property name="main-class" 	value="com.lexmark.stl.assessment.AssessmentAutomation"/>
+	<property name="device.ip" value="157.184.75.148" />
+	<property name="device.type" value="mfp" />
+	-->
+	<!-- Load properties -->
+	<property file="build.properties"/>
+	
+	<!-- Load task definitions e.g. FTP -->
+	<path id="class.path">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+		<pathelement location="${build.dir}"/>
+	</path>	
+	
+	<!-- Write the classpath to the console. Helpful for debugging -->
+		<!-- Create one line per classpath element
+		<pathconvert pathsep="${line.separator}" property="echo.classpath" refid="class.path">
+		</pathconvert>
+		-->
+		<!-- Write the result to the console 
+		<echo message="The following classpath is associated with junit.class.path " />
+		<echo message="${echo.classpath}" />
+		-->
+
+	<!--<taskdef file="task.properties" classpathref="class.path"/>-->
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    	<delete dir="${dist.dir}" />
+    </target>
+
+    <target name="compile">
+    	
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="class.path" />
+    </target>
+
+    <target name="jar" depends="compile">
+    	<manifestclasspath property="manifest.classpath" jarfile="${manifest.jar}">
+    	      <classpath refid="class.path"/>
+    	</manifestclasspath>
+    	
+    	<!--<echo message="manifest classpath: ${manifest.classpath}" />-->
+        <mkdir dir="${jar.dir}"/>
+    	<mkdir dir="${dist.dir}"/>
+    	<!--
+    	<mkdir dir="${build.lib.dir}" />
+    	
+    	<copy todir="${build.lib.dir}" flatten="true">
+    	      <resources>
+    	      		<fileset dir="${lib.dir}" includes="*.jar" />
+    	      </resources>
+    	</copy>-->
+
+        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${build.dir}" >
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            	<attribute name="Class-Path" value="${manifest.classpath}"/>
+            </manifest>
+        </jar>
+    	
+    	<copy todir="${dist.dir}">
+			<resources>
+				<fileset dir="${jar.dir}" includes="${ant.project.name}.jar" />
+			</resources>
+		</copy>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${dist.dir}/${ant.project.name}.jar" fork="true">
+        	<classpath>
+        		<pathelement path="${class.path}"/>
+        		<pathelement path="${dist.dir}/${ant.project.name}.jar"/>
+        	</classpath>
+        	<arg line="-d" />
+        	<arg value="${ip.arg}}" />
+        	<arg value="${ismfp.arg}" />
+        	<arg value="${screen.size.arg}" />
+        </java>
+    </target>
+	
+	<target name="dist" depends="clean,jar">
+		<mkdir dir="${dist.dir}"/>
+		<mkdir dir="${build.dist.dir}"/>
+		<mkdir dir="${build.dist.app.dir}/bin"/>
+		<mkdir dir="${build.dist.app.dir}"/>
+		<mkdir dir="${build.dist.lib.dir}"/>
+		<mkdir dir="${build.dist.dist.dir}"/>
+		<mkdir dir="${build.dist.doc.dir}"/>
+		<mkdir dir="${build.dist.log.dir}"/>
+		<mkdir dir="${build.dist.files.dir}"/>
+		
+		
+		<copy todir="${build.dist.lib.dir}">
+			<resources>
+				<fileset dir="${lib.dir}" includes="*.jar" />
+			</resources>
+		</copy>
+		
+		<copy todir="${build.dist.doc.dir}">
+			<resources>
+				<fileset dir="${doc.dir}" includes="**.*" />
+			</resources>
+		</copy>
+		
+		<copy todir="${build.dist.dist.dir}">
+			<resources>
+				<fileset dir="${jar.dir}" includes="${ant.project.name}.jar" />
+			</resources>
+		</copy>
+		
+		<copy todir="${build.dist.files.dir}">
+			<resources>
+				<fileset dir="${files.dir}" includes="**.*" />
+			</resources>
+		</copy>
+		
+		<copy todir="${build.dist.files.dir}/npa">
+			<resources>
+				<fileset dir="${files.npa.dir}" includes="**.*" />
+			</resources>
+		</copy>
+		
+		<copy todir="${build.dist.files.dir}/print">
+			<resources>
+				<fileset dir="${files.print.dir}" includes="**.*" />
+			</resources>
+		</copy>
+	
+			<copy todir="${build.dist.files.dir}/images">
+				<resources>
+					<fileset dir="${files.images.dir}" includes="**.*" />
+				</resources>
+			</copy>
+		
+		<copy todir="${build.dist.app.dir}" file="${config.dir}/runAssess" />
+		<chmod perm="+x" file="${build.dist.app.dir}/runAssess"/>
+		
+		<zip destfile="${dist.dir}/${ant.project.name}.zip" compress="true" basedir="${build.dist.dir}" />
+		
+	</target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,run"/>
+
+</project>
