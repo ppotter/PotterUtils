@@ -36,7 +36,7 @@ public class ReadWriteTextFile {
 	    }
 	  }
 	
-	void read() throws IOException {
+	String read() throws IOException {
 		logger.trace("Reading from file.");
 		content = new StringBuilder();
 	    String NL = System.getProperty("line.separator");
@@ -55,5 +55,6 @@ public class ReadWriteTextFile {
 	      scanner.close();
 	    }
 	    logger.trace("Text read in: " + content);
+	    return content.toString();
 	  }
 }

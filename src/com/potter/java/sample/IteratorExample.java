@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.Stack;
 import java.util.TreeSet;
 
 public class IteratorExample {
@@ -58,6 +59,13 @@ public class IteratorExample {
 		ex.setCollectables(new TreeSet<String>());
 		ex.addCollectables(strings);
 		ex.outputCollectables();
+		
+		System.out.println();
+		System.out.println("example of a Stack");
+		ex.setCollectables(new Stack<String>());
+		ex.addCollectables(strings);
+		ex.outputCollectables();
+		
 		
 		
 	}

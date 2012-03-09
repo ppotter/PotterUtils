@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- Comments are the same as in HTML -->
+<document>
+	<wrapper>
+		<contained>
+			container value
+			<sub>test value</sub>
+		</contained>
+		wrapper value
+	</wrapper>
+	<wrapper>
+		<contained>
+			container value2
+			<sub>test value2</sub>
+		</contained>
+		wrapper value2
+	</wrapper>
+	<wrapper>
+		<contained>
+			container value3
+			<sub>test value3</sub>
+		</contained>
+		wrapper value3
+	</wrapper>
+</document>
