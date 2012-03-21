@@ -49,7 +49,7 @@ public class XmlParser {
 		}
 	}
 	
-	private static String getValueTagText(Element ele) {
+	public static String getValueTagText(Element ele) {
 		String textVal = null;
 		NodeList nl = ele.getElementsByTagName("Value");
 		if(nl != null && nl.getLength() > 0) {
@@ -60,9 +60,19 @@ public class XmlParser {
 		return textVal;
 	}
 	
-	private static String getTextValue(Element ele) {
+	public static String getTextValue(Element ele) {
 		return ele.getFirstChild().getNodeValue();
 	}
+	
+	public static boolean hasChild(Element ele, String child){
+		NodeList nl = ele.getElementsByTagName(child);
+		if(nl != null && nl.getLength() > 0) {
+			Element el = (Element)nl.item(0);
+			return el!=null;
+		}
+		return false;
+	}
+	
 	
 	public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException{
 		XmlParser xml = new XmlParser(new File("./files/xml/sample.xml"));
