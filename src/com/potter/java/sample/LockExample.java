@@ -21,14 +21,11 @@ public class LockExample {
 		
 		public String get(Integer key){
 			String result = "";
-			if(lock.tryLock()){
-				try{
-					result = map.get(key);
-				}finally{
-					lock.unlock();
-				}
-			}else{
-				System.out.println("Resource could not be obtained.");
+			lock.lock();
+			try{
+				result = map.get(key);
+			}finally{
+				lock.unlock();
 			}
 			return result;
 		}
@@ -36,15 +33,12 @@ public class LockExample {
 		public boolean update(Integer key, String value){
 			boolean result = false;
 			
-			if(lock.tryLock()){
-				try{
-					map.put(key, value);
-					result = true;
-				}finally{
-					lock.unlock();
-				}
-			}else{
-				System.out.println("Resource could not be obtained.");
+			lock.lock();
+			try{
+				map.put(key, value);
+				result = true;
+			}finally{
+				lock.unlock();
 			}
 			return result;
 		}
@@ -52,15 +46,12 @@ public class LockExample {
 		public boolean remove(Integer key){
 			boolean result = false;
 			
-			if(lock.tryLock()){
-				try{
-					map.remove(key);
-					result = true;
-				}finally{
-					lock.unlock();
-				}
-			}else{
-				System.out.println("Resource could not be obtained.");
+			lock.lock();
+			try{
+				map.remove(key);
+				result = true;
+			}finally{
+				lock.unlock();
 			}
 			return result;
 		}
