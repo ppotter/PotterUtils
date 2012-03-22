@@ -6,10 +6,13 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class LockExample {
 	static class Resource{
-		private final Lock lock = new ReentrantLock();
+		private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+		private final Lock readerLock = lock.readLock();
+		private final Lock writerLock = lock.writeLock();
 		private final Map<Integer,String> map;
 		
 		public Resource(){
@@ -21,11 +24,11 @@ public class LockExample {
 		
 		public String get(Integer key){
 			String result = "";
-			lock.lock();
+			readerLock.lock();
 			try{
 				result = map.get(key);
 			}finally{
-				lock.unlock();
+				readerLock.unlock();
 			}
 			return result;
 		}
@@ -33,12 +36,12 @@ public class LockExample {
 		public boolean update(Integer key, String value){
 			boolean result = false;
 			
-			lock.lock();
+			writerLock.lock();
 			try{
 				map.put(key, value);
 				result = true;
 			}finally{
-				lock.unlock();
+				writerLock.unlock();
 			}
 			return result;
 		}
@@ -46,12 +49,12 @@ public class LockExample {
 		public boolean remove(Integer key){
 			boolean result = false;
 			
-			lock.lock();
+			writerLock.lock();
 			try{
 				map.remove(key);
 				result = true;
 			}finally{
-				lock.unlock();
+				writerLock.unlock();
 			}
 			return result;
 		}
