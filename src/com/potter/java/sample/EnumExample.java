@@ -19,9 +19,4 @@ public enum EnumExample {
 		return (this.value.booleanValue() == that);
 	}
 	
-	public boolean equals(EnumExample that){
-		if(this == that) return true;
-		if(this.equals(that.value)) return true;
-		return false;
-	}
 }
