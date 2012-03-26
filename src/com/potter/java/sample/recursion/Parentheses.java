@@ -5,6 +5,10 @@ package com.potter.java.sample.recursion;
  */
 
 public class Parentheses {
+	static void parentheses(int n){
+		parentheses(n, 0, "");
+	}
+	
 	static void parentheses(int open, int close, String result) {
 		if (open == 0 && close == 0) {
 			//recursion has reached the end of a pair(hit the maximum number of parentheses
@@ -22,6 +26,6 @@ public class Parentheses {
 		}
 	}
 	public static void main(String[] args) {
-		parentheses(4, 0, "");
+		parentheses(3);
 	}
 }
