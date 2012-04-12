@@ -14,14 +14,16 @@ public class FuzzyCompare {
 	}
 	
 	public static boolean equals(Integer aThis, Integer aThat, int variance){
+		if(aThis.equals(aThat)) return true;
 		int diff = Math.abs(aThis.intValue() - aThat.intValue());
-		if(diff < variance) return true;
+		if(diff <= variance) return true;
 		return false;
 	}
 	
 	public static boolean equals(Long aThis, Long aThat, long variance){
+		if(aThis.equals(aThat)) return true;
 		long diff = Math.abs(aThis.longValue() - aThat.longValue());
-		if(diff < variance) return true;
+		if(diff <= variance) return true;
 		return false;
 	}
 	
@@ -34,12 +36,14 @@ public class FuzzyCompare {
 	}
 	
 	public static boolean equals(Float aThis, Float aThat, float variance){
+		if(aThis.equals(aThat)) return true;
 		float diff = Math.abs(aThis.floatValue() - aThat.floatValue());
 		if(diff < variance) return true;
 		return false;
 	}
 	
 	public static boolean equals(Double aThis, Double aThat, double variance){
+		if(aThis.equals(aThat)) return true;
 		double diff = Math.abs(aThis.doubleValue() - aThat.doubleValue());
 		if(diff < variance) return true;
 		return false;

@@ -121,5 +121,75 @@ public class FuzzyCompareTest extends TestCase {
 		assertFalse(FuzzyCompare.equals(c, a));
 	}
 	
+	@Test
+	public void testPositiveSimilar(){
+		String a = "subset", b = "subset is contained in this string";
+		
+		assertTrue(FuzzyCompare.similar(a, b));
+		assertTrue(FuzzyCompare.similar(b, a));
+	}
+	
+	@Test
+	public void testNegativeSimilar(){
+		String a = "asdf", b = "no subset is contained in this string, HA";
+		
+		assertFalse(FuzzyCompare.similar(a, b));
+		assertFalse(FuzzyCompare.similar(b, a));
+	}
+	
+	@Test
+	public void testNullSimilar(){
+		String a = null, aa = null, b = "", bb = "";
+		
+		assertTrue(FuzzyCompare.similar(a, a));
+		assertTrue(FuzzyCompare.similar(a, aa));
+		assertTrue(FuzzyCompare.similar(aa, a));
+		
+		assertTrue(FuzzyCompare.similar(b, b));
+		assertTrue(FuzzyCompare.similar(b, bb));
+		assertTrue(FuzzyCompare.similar(bb, b));
+		
+		assertFalse(FuzzyCompare.similar(a, b));
+		assertFalse(FuzzyCompare.similar(b, a));
+	}
+	
+	@Test
+	public void testPositiveIntegerEquals(){
+		Integer a = new Integer(0);
+		Integer aa = new Integer(0);
+		Integer b = new Integer(1);
+		Integer c = new Integer(5);
+		int variance = 2, novariance = 0;
+		
+		assertTrue(FuzzyCompare.equals(a, a));
+		assertTrue(FuzzyCompare.equals(a, aa));
+		assertTrue(FuzzyCompare.equals(aa, a));
+		
+		assertTrue(FuzzyCompare.equals(a, aa, novariance));
+		assertTrue(FuzzyCompare.equals(aa, a, novariance));
+		assertTrue(FuzzyCompare.equals(a, aa, variance));
+		assertTrue(FuzzyCompare.equals(aa, a, variance));
+	}
+	
+	@Test
+	public void testNegativeIntegerEquals(){
+		Integer a = new Integer(0);
+		Integer aa = new Integer(0);
+		Integer b = new Integer(1);
+		Integer c = new Integer(5);
+		int variance = 2, novariance = 0;
+		
+		assertFalse(FuzzyCompare.equals(a, b, novariance));
+		assertFalse(FuzzyCompare.equals(b, a, novariance));
+		assertTrue(FuzzyCompare.equals(a, b, variance));
+		assertTrue(FuzzyCompare.equals(b, a, variance));
+		
+		assertFalse(FuzzyCompare.equals(a, c, novariance));
+		assertFalse(FuzzyCompare.equals(c, a, novariance));
+		assertFalse(FuzzyCompare.equals(a, c, variance));
+		assertFalse(FuzzyCompare.equals(c, a, variance));
+		
+		
+	}
 	
 }
