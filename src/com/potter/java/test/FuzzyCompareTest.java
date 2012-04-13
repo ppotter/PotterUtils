@@ -165,6 +165,9 @@ public class FuzzyCompareTest extends TestCase {
 		assertTrue(FuzzyCompare.equals(a, aa));
 		assertTrue(FuzzyCompare.equals(aa, a));
 		
+		assertTrue(FuzzyCompare.equals(a, b, variance));
+		assertTrue(FuzzyCompare.equals(b, a, variance));
+		
 		assertTrue(FuzzyCompare.equals(a, aa, novariance));
 		assertTrue(FuzzyCompare.equals(aa, a, novariance));
 		assertTrue(FuzzyCompare.equals(a, aa, variance));
@@ -181,14 +184,128 @@ public class FuzzyCompareTest extends TestCase {
 		
 		assertFalse(FuzzyCompare.equals(a, b, novariance));
 		assertFalse(FuzzyCompare.equals(b, a, novariance));
-		assertTrue(FuzzyCompare.equals(a, b, variance));
-		assertTrue(FuzzyCompare.equals(b, a, variance));
-		
+
 		assertFalse(FuzzyCompare.equals(a, c, novariance));
 		assertFalse(FuzzyCompare.equals(c, a, novariance));
 		assertFalse(FuzzyCompare.equals(a, c, variance));
 		assertFalse(FuzzyCompare.equals(c, a, variance));
 		
+	}
+	
+	@Test
+	public void testPositiveLongEquals(){
+		Long a = new Long(0);
+		Long aa = new Long(0);
+		Long b = new Long(10);
+		Long c = new Long(50);
+		int variance = 20, novariance = 0;
+		
+		assertTrue(FuzzyCompare.equals(a, a));
+		assertTrue(FuzzyCompare.equals(a, aa));
+		assertTrue(FuzzyCompare.equals(aa, a));
+		
+		assertTrue(FuzzyCompare.equals(a, b, variance));
+		assertTrue(FuzzyCompare.equals(b, a, variance));
+		
+		assertTrue(FuzzyCompare.equals(a, aa, novariance));
+		assertTrue(FuzzyCompare.equals(aa, a, novariance));
+		assertTrue(FuzzyCompare.equals(a, aa, variance));
+		assertTrue(FuzzyCompare.equals(aa, a, variance));
+	}
+	
+	@Test
+	public void testNegativeLongEquals(){
+		Long a = new Long(0);
+		Long aa = new Long(0);
+		Long b = new Long(10);
+		Long c = new Long(50);
+		int variance = 20, novariance = 0;
+		
+		assertFalse(FuzzyCompare.equals(a, b, novariance));
+		assertFalse(FuzzyCompare.equals(b, a, novariance));
+
+		assertFalse(FuzzyCompare.equals(a, c, novariance));
+		assertFalse(FuzzyCompare.equals(c, a, novariance));
+		assertFalse(FuzzyCompare.equals(a, c, variance));
+		assertFalse(FuzzyCompare.equals(c, a, variance));
+		
+	}
+	
+	@Test
+	public void testPositiveFloatEquals(){
+		Float a = new Float(0);
+		Float aa = new Float(0);
+		Float b = new Float(0.01);
+		Float c = new Float(0.005);
+		float variance = (float) 0.1, novariance = 0;
+		
+		assertTrue(FuzzyCompare.equals(a, a));
+		assertTrue(FuzzyCompare.equals(a, aa));
+		assertTrue(FuzzyCompare.equals(aa, a));
+		
+		assertTrue(FuzzyCompare.equals(a, b, variance));
+		assertTrue(FuzzyCompare.equals(b, a, variance));
+		
+		assertTrue(FuzzyCompare.equals(a, aa, novariance));
+		assertTrue(FuzzyCompare.equals(aa, a, novariance));
+		assertTrue(FuzzyCompare.equals(a, aa, variance));
+		assertTrue(FuzzyCompare.equals(aa, a, variance));
+	}
+	
+	@Test
+	public void testNegativeFloatEquals(){
+		Float a = new Float(0);
+		Float aa = new Float(0);
+		Float b = new Float(.01);
+		Float c = new Float(0.005);
+		float variance = (float) 0.001, novariance = 0;
+		
+		assertFalse(FuzzyCompare.equals(a, b, novariance));
+		assertFalse(FuzzyCompare.equals(b, a, novariance));
+
+		assertFalse(FuzzyCompare.equals(a, c, novariance));
+		assertFalse(FuzzyCompare.equals(c, a, novariance));
+		assertFalse(FuzzyCompare.equals(a, c, variance));
+		assertFalse(FuzzyCompare.equals(c, a, variance));
+		
+	}
+	
+	@Test
+	public void testPositiveDoubleEquals(){
+		Double a = new Double(0);
+		Double aa = new Double(0);
+		Double b = new Double(0.01);
+		Double c = new Double(0.005);
+		double variance = 0.1, novariance = 0;
+		
+		assertTrue(FuzzyCompare.equals(a, a));
+		assertTrue(FuzzyCompare.equals(a, aa));
+		assertTrue(FuzzyCompare.equals(aa, a));
+		
+		assertTrue(FuzzyCompare.equals(a, b, variance));
+		assertTrue(FuzzyCompare.equals(b, a, variance));
+		
+		assertTrue(FuzzyCompare.equals(a, aa, novariance));
+		assertTrue(FuzzyCompare.equals(aa, a, novariance));
+		assertTrue(FuzzyCompare.equals(a, aa, variance));
+		assertTrue(FuzzyCompare.equals(aa, a, variance));
+	}
+	
+	@Test
+	public void testNegativeDoubleEquals(){
+		Double a = new Double(0);
+		Double aa = new Double(0);
+		Double b = new Double(.01);
+		Double c = new Double(0.005);
+		double variance = 0.001, novariance = 0;
+		
+		assertFalse(FuzzyCompare.equals(a, b, novariance));
+		assertFalse(FuzzyCompare.equals(b, a, novariance));
+
+		assertFalse(FuzzyCompare.equals(a, c, novariance));
+		assertFalse(FuzzyCompare.equals(c, a, novariance));
+		assertFalse(FuzzyCompare.equals(a, c, variance));
+		assertFalse(FuzzyCompare.equals(c, a, variance));
 		
 	}
 	

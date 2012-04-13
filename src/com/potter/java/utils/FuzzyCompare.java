@@ -49,12 +49,36 @@ public class FuzzyCompare {
 		return false;
 	}
 	
-	public static boolean equals(String aThis, String aThat){
+	public static boolean quickEquals(String aThis, String aThat){
 		Boolean result;
 		if((result = nullCheck(aThis,aThat)) != null) return result;
 		if(aThis.equals(aThat))return true;
 		if(aThis.equalsIgnoreCase(aThat))return true;
-		
+		return false;
+	}
+	
+	public static boolean equalsFocusNumbers(String aThis, String aThat){
+		if(quickEquals(aThis,aThat))return true;
+		String trimedThis = removeWhiteSpace(aThis), trimedThat = removeWhiteSpace(aThat);
+		if(trimedThis.equalsIgnoreCase(trimedThat))return true;
+		if(removeCharacters(trimedThis).equalsIgnoreCase(removeCharacters(trimedThat))){
+			return true;
+		}
+		return false;
+	}	
+	
+	public static boolean equalsFocusLetters(String aThis, String aThat){
+		if(quickEquals(aThis,aThat))return true;
+		String trimedThis = removeWhiteSpace(aThis), trimedThat = removeWhiteSpace(aThat);
+		if(trimedThis.equalsIgnoreCase(trimedThat))return true;
+		if(removeNumbers(trimedThis).equalsIgnoreCase(removeNumbers(trimedThat))){
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean equals(String aThis, String aThat){
+		if(quickEquals(aThis,aThat))return true;
 		String trimedThis = removeWhiteSpace(aThis), trimedThat = removeWhiteSpace(aThat);
 		if(trimedThis.equalsIgnoreCase(trimedThat))return true;
 		int thisNums = countNumbers(trimedThis), thatNums = countNumbers(trimedThat);
