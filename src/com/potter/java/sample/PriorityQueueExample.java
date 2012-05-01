@@ -6,8 +6,7 @@ import com.potter.java.sample.sort.StringValueComparator;
 
 public class PriorityQueueExample {
 
-	
-	public static void main(String[] args){
+	public static void priorityQueueExample1(){
 		PriorityQueue<String> queue = 
 			new PriorityQueue<String>(15, new StringValueComparator());
 		queue.add("z");
@@ -30,5 +29,35 @@ public class PriorityQueueExample {
 		while((output = queue.poll()) != null){
 			System.out.println(output);
 		}
+	}
+	
+	public static void priorityQueueExample2(){
+		PriorityQueue<String> queue = 
+			new PriorityQueue<String>();
+		queue.add("z");
+		queue.add("c");
+		queue.add("d");
+		queue.add("b");
+		queue.add("a");
+		queue.add("t");
+		queue.add("o");
+		queue.add("aa");
+		
+		
+		//the order accessed during printout and poll vary from each other
+		//and from insertion order.
+		System.out.println(queue);
+		System.out.println();
+		System.out.println("------------");
+		
+		String output;
+		while((output = queue.poll()) != null){
+			System.out.println(output);
+		}
+	}
+	
+	
+	public static void main(String[] args){
+		priorityQueueExample2();
 	}
 }

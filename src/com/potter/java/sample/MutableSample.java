@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.potter.java.utils.RecycleDeque;
 
 //mutable example in the form of a simple stop light.
-public class MutableSample {
+public class MutableSample implements Comparable<MutableSample> {
 	private Color[] availableColors = { Color.GREEN, Color.YELLOW, Color.RED };
 	private ArrayList<Color> validColors = new ArrayList<Color>();
 	private RecycleDeque<Color> colorQueue;
@@ -56,6 +56,23 @@ public class MutableSample {
 			return false;
 		MutableSample other = (MutableSample) obj;
 		return this.getCurrentLight().equals(other.getCurrentLight());
+	}
+
+	@Override
+	public int compareTo(MutableSample that) {
+		final int BEFORE = -1;
+	    final int EQUAL = 0;
+	    final int AFTER = 1;
+	    
+	    if(this == that) return EQUAL;
+	    if(this.getCurrentLight().equals(that.getCurrentLight())) return EQUAL;
+	    if(this.getCurrentLight().equals(Color.GREEN) 
+	    		&& !that.getCurrentLight().equals(Color.GREEN)) return AFTER;
+	    if(this.getCurrentLight().equals(Color.RED) 
+	    		&& !that.getCurrentLight().equals(Color.RED)) return BEFORE;
+	    if(this.getCurrentLight().equals(Color.YELLOW) 
+	    		&& that.getCurrentLight().equals(Color.GREEN)) return BEFORE;
+		return AFTER;
 	}
 	
 	
