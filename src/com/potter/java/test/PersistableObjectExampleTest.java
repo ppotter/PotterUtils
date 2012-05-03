@@ -91,7 +91,7 @@ public class PersistableObjectExampleTest extends TestCase {
 		try{
 			obj.validateState();
 			fail("Expected InvalidAttributeValueException");
-		}catch(InvalidAttributeValueException ex){
+		}catch(IllegalArgumentException ex){
 			//Test Passed exception expected
 		}
 	}

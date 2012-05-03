@@ -150,7 +150,7 @@ public class PersistableObjectExample implements Serializable, Cloneable {
 		return result.toString();
 	}
 	
-	public void validateState() throws InvalidAttributeValueException{
+	public void validateState() throws IllegalArgumentException{
 		StringBuilder message = new StringBuilder();
 		String newLine = System.getProperty("line.separator");
 		//required fields.
@@ -179,7 +179,7 @@ public class PersistableObjectExample implements Serializable, Cloneable {
 			message.append(newLine);
 		}
 		if(!message.toString().isEmpty()){
-			throw new InvalidAttributeValueException(message.toString());
+			throw new IllegalArgumentException(message.toString());
 		}
 	}
 

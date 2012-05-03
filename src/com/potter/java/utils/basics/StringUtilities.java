@@ -1,5 +1,7 @@
 package com.potter.java.utils.basics;
 
+import java.util.Arrays;
+
 public class StringUtilities {
 	
 	/**
@@ -45,8 +47,39 @@ public class StringUtilities {
 		return sBuilder.insert(0, s);
 	}
 	
+	public static StringBuilder clone(StringBuilder s){
+		return new StringBuilder(s.toString());
+	}
+	
 	public static boolean isNullEmpty(String s){
 		return s == null || s.equals("");
+	}
+	
+	public static String sortCharacters(String s){
+		char[] c = s.toCharArray();
+		Arrays.sort(c);
+		return new String(c);
+	}
+	
+	public static boolean isAnagram(String aThis, String aThat){
+		return sortCharacters(aThis).equalsIgnoreCase(sortCharacters(aThat));
+	}
+	
+	public static boolean isPalindrome(String s){
+		for(int i = 0; i < s.length()/2; i++){
+			if(s.charAt(i) != s.charAt(s.length()-i)){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static boolean isAllUpperCase(String s){
+		return s.equals(s.toUpperCase());
+	}
+	
+	public static boolean isAllLowerCase(String s){
+		return s.equals(s.toLowerCase());
 	}
 	
 }

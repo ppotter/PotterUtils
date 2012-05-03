@@ -2,7 +2,7 @@ package com.potter.java.sample;
 
 import java.util.Random;
 
-public class SampleThreadable implements Runnable {
+public class Threadable implements Runnable {
 
 	private static final int seconds = 1000;
 	protected boolean running = false;
@@ -18,7 +18,7 @@ public class SampleThreadable implements Runnable {
 		requestedStop = true;
 	}
 	
-	public SampleThreadable(String threadName,String output){
+	public Threadable(String threadName,String output){
 		this.threadName = threadName;
 		this.output = output;
 		System.out.println("Constructing Thread: " + threadName);

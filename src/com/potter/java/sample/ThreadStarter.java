@@ -8,8 +8,8 @@ public class ThreadStarter {
 
 	
 	public static void main(String[] args){
-		SampleThreadable first = new SampleThreadable("First","Processing for First");
-		SampleThreadable second = new SampleThreadable("Second","Processing for Second");
+		Threadable first = new Threadable("First","Processing for First");
+		Threadable second = new Threadable("Second","Processing for Second");
 		
 		Thread one = new Thread(first);
 		Thread two = new Thread(second);
